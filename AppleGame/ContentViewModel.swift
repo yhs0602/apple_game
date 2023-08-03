@@ -23,7 +23,7 @@ final class ContentViewModel: ObservableObject {
     }
 
     private lazy var applesLocation: [[CGPoint]] =
-    Array(repeating: Array(repeating: .zero, count: rows), count: columns)
+        Array(repeating: Array(repeating: .zero, count: rows), count: columns)
 
     var dragRectangleWidth: CGFloat { draggedCGsize.width.magnitude }
     var dragRectangleHeight: CGFloat { draggedCGsize.height.magnitude }
