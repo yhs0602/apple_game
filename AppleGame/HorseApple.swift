@@ -10,21 +10,14 @@ import SwiftUI
 struct HorseApple: View {
 //    @StateObject var viewModel = HorseAppleViewModel()
 
-    let num: Int
-    let x: Int
-    let y: Int
-
     @ObservedObject var viewModel: HorseAppleViewModel
-    
-    init(num: Int, x: Int, y: Int, viewModel: HorseAppleViewModel) {
-        self.num = num
-        self.x = x
-        self.y = y
+
+    init(viewModel: HorseAppleViewModel) {
         self.viewModel = viewModel
     }
-     
+
     var body: some View {
-        ZStack{
+        ZStack {
             Image(systemName: "apple.logo")
                 .foregroundColor(
                     viewModel.isDeleted ?
@@ -34,7 +27,7 @@ struct HorseApple: View {
                 )
                 .opacity(0.9)
                 .font(.system(size: 30))
-            Text("\(num)")
+            Text("\(viewModel.num)")
                 .foregroundColor(
                     viewModel.isDeleted ?
                         .clear
@@ -43,7 +36,6 @@ struct HorseApple: View {
                 )
                 .font(.system(size: 15))
                 .padding(EdgeInsets(top: 7, leading: 0, bottom: 0, trailing: 0))
-
         }
         .background(
             viewModel.isSelected && !viewModel.isDeleted ?
@@ -57,12 +49,9 @@ struct HorseApple: View {
                         .opacity(0.7))
             )
     }
-    
-    
-
 }
     struct HorseApple_Previews: PreviewProvider {
         static var previews: some View {
-            HorseApple(num: 3, x: 0, y: 0, viewModel: HorseAppleViewModel())
+            HorseApple(viewModel: HorseAppleViewModel(num: 3, x: 0, y: 0))
         }
 }

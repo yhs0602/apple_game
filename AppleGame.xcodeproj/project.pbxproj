@@ -59,12 +59,12 @@
 		ACF13A1E2A529F6600107D0B /* AppleGame */ = {
 			isa = PBXGroup;
 			children = (
-				ACF13A3B2A5D1EE000107D0B /* HorseAppleViewModel.swift */,
 				ACF13A1F2A529F6600107D0B /* AppleGameApp.swift */,
+				ACF13A2D2A52A58400107D0B /* AppView.swift */,
 				ACF13A212A529F6600107D0B /* ContentView.swift */,
 				ACF13A392A5BEFD400107D0B /* ContentViewModel.swift */,
 				ACF13A2F2A52AD0800107D0B /* HorseApple.swift */,
-				ACF13A2D2A52A58400107D0B /* AppView.swift */,
+				ACF13A3B2A5D1EE000107D0B /* HorseAppleViewModel.swift */,
 				ACF13A232A529F6700107D0B /* Assets.xcassets */,
 				ACF13A252A529F6700107D0B /* Preview Content */,
 			);
@@ -89,6 +89,7 @@
 				ACF13A182A529F6600107D0B /* Sources */,
 				ACF13A192A529F6600107D0B /* Frameworks */,
 				ACF13A1A2A529F6600107D0B /* Resources */,
+				465C0BE92A7B97EA007F7B06 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -143,6 +144,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		465C0BE92A7B97EA007F7B06 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ACF13A182A529F6600107D0B /* Sources */ = {
@@ -283,6 +305,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AppleGame/Preview Content\"";
+				DEVELOPMENT_TEAM = EBL648DP7E;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -311,6 +334,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AppleGame/Preview Content\"";
+				DEVELOPMENT_TEAM = EBL648DP7E;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

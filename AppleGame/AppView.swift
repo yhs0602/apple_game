@@ -10,7 +10,7 @@ import SwiftUI
 struct AppView: View {
     var body: some View {
         NavigationView {
-            VStack{
+            VStack {
                 Spacer()
                     .frame(height: 100)
                 Image(systemName: "apple.logo")
@@ -20,7 +20,7 @@ struct AppView: View {
                     .padding(2)
                 Spacer()
                     .frame(height: 70)
-                NavigationLink(destination: ContentView()){
+                NavigationLink(destination: ContentView()) {
                     Text("Start!")
                         .frame(width: 100)
                         .padding(6)
@@ -28,14 +28,10 @@ struct AppView: View {
                             .stroke(Color.accentColor, lineWidth: 4))
                 }
             }
-            
         }
         .ignoresSafeArea()
-        
     }
-    
 }
-
 
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {

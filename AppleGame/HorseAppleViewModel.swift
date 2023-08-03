@@ -7,14 +7,19 @@
 
 import SwiftUI
 
-class HorseAppleViewModel: ObservableObject{
-    
-    @Published var isSelected = false
-    @Published var isDeleted = false
-   
-    init(isSelected: Bool = false, isDeleted: Bool = false){
+final class HorseAppleViewModel: ObservableObject {
+    @Published var isSelected: Bool
+    @Published var isDeleted: Bool
+
+    let num: Int
+    let x: Int
+    let y: Int
+
+    init(num: Int, x: Int, y: Int, isSelected: Bool = false, isDeleted: Bool = false) {
+        self.num = num
+        self.x = x
+        self.y = y
         self.isSelected = isSelected
         self.isDeleted = isDeleted
     }
 }
-
