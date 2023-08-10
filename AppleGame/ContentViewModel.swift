@@ -133,7 +133,12 @@ final class ContentViewModel: ObservableObject {
         for row in appleViewModels {
             for apple in row {
                 if apple.isSelected && !apple.isDeleted {
-                    apple.isDeleted = true
+                    Task {
+                        try? await Task.sleep(for: .seconds(1)) // 취소했을 수도 있음
+                        Task { @MainActor in // MainActor.run
+                            apple.isDeleted = true
+                        }
+                    }
                     addingScore()
                 }
             }
