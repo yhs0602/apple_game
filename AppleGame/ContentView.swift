@@ -29,41 +29,44 @@ struct ContentView: View {
                         }
                     }
                 }
-                    .frame(height: 340)
             }
         }
-            .frame(width: 560)
     }
 
     var body: some View {
-        ZStack {
-            applePie
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .gesture(drag)
+        HStack {
+            ZStack {
+                applePie
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .gesture(drag)
 
-            Rectangle()
-                .stroke(Color.cyan, lineWidth: 3)
-                .frame(width: viewModel.dragRectangleWidth, height: viewModel.dragRectangleHeight)
-                .opacity(0.7)
-                .position(x: viewModel.dragRectanglePositionX, y: viewModel.dragRectanglePositionY)
-
-            HStack {
-                Spacer()
-                    .frame(width: 700)
                 Rectangle()
-                    .frame(width: 20, height: 300)
-                VStack {
-                    Text("score: \(viewModel.score)")
-                    Image(systemName: "house")
-                    Image(systemName: "arrowshape.turn.up.backward")
-                }
-                Spacer()
-                    .frame(width: 30)
+                    .stroke(Color.cyan, lineWidth: 3)
+                    .frame(width: viewModel.draggedCGsize.width, height: viewModel.draggedCGsize.height)
+                    .opacity(0.7)
+                    .position(x: viewModel.dragRectanglePositionX, y: viewModel.dragRectanglePositionY)
+            }
+
+//                Spacer()
+//                    .frame(width: 700)
+//                Rectangle()
+//                    .frame(width: 20, height: 300)
+            TimerView(totalTime: .seconds(viewModel.timeLimit), remainingTime: viewModel.remainingTime).frame(width: 12)
+            VStack {
+                Text("score: \(viewModel.score)")
+                Image(systemName: "house")
+                Image(systemName: "arrowshape.turn.up.backward")
             }
         }
             .coordinateSpace(name: "game")
-            .ignoresSafeArea()
+            .padding(.vertical, 18)
+            .ignoresSafeArea(edges: .vertical)
             .navigationBarBackButtonHidden(true)
+            .alert("Game over!", isPresented: $viewModel.gameIsOver) {
+                Button("Restart") {
+                    viewModel.restart()
+                }
+            }
     }
 
     @State private var selectedNums = 0

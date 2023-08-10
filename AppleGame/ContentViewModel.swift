@@ -5,6 +5,7 @@
 //  Created by snulife on 2023/07/10.
 //
 
+import Combine
 import SwiftUI
 
 final class ContentViewModel: ObservableObject {
@@ -12,6 +13,21 @@ final class ContentViewModel: ObservableObject {
     @Published private(set) var movingPoint = CGPoint.zero
     @Published private(set) var endPoint = CGPoint.zero
     @Published private(set) var score = 0
+
+    let timeLimit: Int
+    /// rememer to sync game is over
+    @Published private(set) var remainingTime: Duration {
+        didSet {
+            if remainingTime == .zero {
+                gameIsOver = true
+            }
+        }
+    }
+    @Published var gameIsOver = false {
+        didSet {
+            print("newValue: \(gameIsOver)")
+        }
+    }
 
     let columns = 18
     let rows = 9
@@ -21,6 +37,9 @@ final class ContentViewModel: ObservableObject {
             HorseAppleViewModel(num: .random(in: 1...maxNum), x: i, y: j)
         }
     }
+
+    private var cancellable: AnyCancellable?
+    // cancellable?.cancel()
 
     private lazy var applesLocation: [[CGPoint]] =
         Array(repeating: Array(repeating: .zero, count: rows), count: columns)
@@ -35,6 +54,30 @@ final class ContentViewModel: ObservableObject {
         self.draggedCGsize = draggedCGsize
         self.movingPoint = movingPoint
         self.endPoint = endPoint
+
+        let timeLimit = 5
+        self.timeLimit = timeLimit
+        self.remainingTime = Duration.seconds(timeLimit)
+
+        let timer = Timer.publish(every: 1, tolerance: 0.1, on: .main, in: .default).autoconnect()
+        cancellable = timer.sink { [weak self] _ in // unowned: self 에 대한 reference count 올리지 않고 쓸 거야 : 위험해요. force unwrapping같음. self가 없어지면 crash
+            // weak self는 없으면 nil 되기 때문에 안전
+            guard let self, self.remainingTime > .zero else { return } // 일반적인 self guard 패턴
+            self.remainingTime -= .seconds(1)
+        }
+    }
+
+    func restart() {
+        print("Restart")
+        gameIsOver = false
+        remainingTime = .seconds(timeLimit)
+        score = 0
+        for row in appleViewModels {
+            for apple in row {
+                apple.reset(num: .random(in: 1...maxNum))
+            }
+        }
+        draggedCGsize = .zero
     }
 
     func whileDraging(gesture: DragGesture.Value) {

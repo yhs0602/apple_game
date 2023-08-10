@@ -11,7 +11,7 @@ final class HorseAppleViewModel: ObservableObject {
     @Published var isSelected: Bool
     @Published var isDeleted: Bool
 
-    let num: Int
+    var num: Int
     let x: Int
     let y: Int
 
@@ -21,5 +21,11 @@ final class HorseAppleViewModel: ObservableObject {
         self.y = y
         self.isSelected = isSelected
         self.isDeleted = isDeleted
+    }
+
+    func reset(num: Int) {
+        isDeleted = false
+        isSelected = false
+        self.num = num
     }
 }
